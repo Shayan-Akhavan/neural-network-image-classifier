@@ -1,5 +1,5 @@
 # neural-network-image-classifier
-simple neural network for image classification using PyTorch
+Neural network for image classification using PyTorch
 
 **Grayscale Images**: Each image is a single channel (grayscale) and has a size of 28x28 pixels.
 
