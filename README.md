@@ -21,3 +21,9 @@ With the following variations:
 -Shape distortion for triangles  
   
 Equal distribution of shapes (10 of each type)  
+  
+Circles are labeled as 0  
+Squares are labeled as 1  
+Triangles are labeled as 2  
+
+
