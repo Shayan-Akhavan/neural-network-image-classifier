@@ -27,3 +27,9 @@ Squares are labeled as 1
 Triangles are labeled as 2  
 
 
+<h2>SAMPLE OUTPUT</h2>
+
+![Image](https://github.com/user-attachments/assets/e130e012-05e8-453a-b9d4-e9de9c8415bc)
+
+
+
