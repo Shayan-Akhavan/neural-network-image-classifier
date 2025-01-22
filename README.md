@@ -9,7 +9,7 @@ This program is an image classification system using deep learning with PyTorch.
 
 3. **Training Process**: During training, the program shows each image to the network, compares the network's prediction with the correct label, and adjusts the network's parameters to improve its accuracy. The training progresses through multiple epochs (complete passes through all images), and the program regularly reports the loss (error rate) and accuracy to show how well the network is learning.
 
-The end goal is to create a model that can accurately classify new images of shapes it hasn't seen before. The React component we added provides a visual interface to generate and display sample images that can be used for training.
+The end goal is to create a model that can accurately classify new images of shapes it hasn't seen before. The React component I added provides a visual interface to generate and display sample images that can be used for training.
 
 
 Create_dataset.py generates a dataset consisting of 30 samples  
