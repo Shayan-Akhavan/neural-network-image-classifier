@@ -12,12 +12,12 @@ This program is an image classification system using deep learning with PyTorch.
 The end goal is to create a model that can accurately classify new images of shapes it hasn't seen before. The React component we added provides a visual interface to generate and display sample images that can be used for training.
 
 
-Create_dataset.py generates a dataset consisting of 30 samples
-With different variations:
--Random colors (5 different colors)
--Random sizes (between 60 and 100 pixels)
--Random positions on the image
--Rotation for squares
--Shape distortion for triangles
-
-Equal distribution of shapes (10 of each type)
+Create_dataset.py generates a dataset consisting of 30 samples  
+With the following variations:  
+-Random colors (5 different colors)  
+-Random sizes (between 60 and 100 pixels)  
+-Random positions on the image  
+-Rotation for squares  
+-Shape distortion for triangles  
+  
+Equal distribution of shapes (10 of each type)  
