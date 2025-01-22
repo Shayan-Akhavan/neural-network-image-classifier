@@ -1,15 +1,12 @@
 # neural-network-image-classifier
 Neural network for image classification using PyTorch
 
-**Grayscale Images**: Each image is a single channel (grayscale) and has a size of 28x28 pixels.
+This program is an image classification system using deep learning with PyTorch. It takes a set of images (in this case, simple shapes like circles, squares, and triangles) and trains a neural network to recognize and classify these shapes. The program consists of three main parts:
 
-**Labels**: Each image comes with a label (an integer between 0 and 9) representing the digit in the image.
+1. **Data Preparation**: It reads images from a folder and their corresponding labels from a CSV file. Each image is associated with a label (0 for circles, 1 for squares, 2 for triangles) so the network knows what it's supposed to learn.
 
-**Normalization**: The images are typically normalized to have pixel values in the range [0, 1] or standardized with a mean of 0 and a standard deviation of 1.
+2. **Neural Network Model**: The program uses a convolutional neural network (CNN) called ModernNet that's designed to process images. This network learns to identify patterns and features in the images that help distinguish between different shapes.
 
+3. **Training Process**: During training, the program shows each image to the network, compares the network's prediction with the correct label, and adjusts the network's parameters to improve its accuracy. The training progresses through multiple epochs (complete passes through all images), and the program regularly reports the loss (error rate) and accuracy to show how well the network is learning.
 
-## Training set: 60,000 grayscale images of handwritten digits (0-9).
-
-## Test set: 10,000 grayscale images of handwritten digits (0-9).
-
-Each image is 28x28 pixels in size.
+The end goal is to create a model that can accurately classify new images of shapes it hasn't seen before. The React component we added provides a visual interface to generate and display sample images that can be used for training.
