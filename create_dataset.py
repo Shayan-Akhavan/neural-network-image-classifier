@@ -1,64 +1,106 @@
 import os
-import pandas as pd
 from PIL import Image, ImageDraw
+import pandas as pd
 import random
+import math
 
-def create_sample_dataset(base_dir='data', num_images=10):
-    """
-    Creates a sample dataset with simple shapes and a proper CSV file
-    """
-    # Create directories if they don't exist
-    img_dir = os.path.join(base_dir, 'images')
-    os.makedirs(img_dir, exist_ok=True)
+def create_training_data(num_samples=30):  # Increased from 9 to 30 samples
+    # Create directories
+    os.makedirs('data/images', exist_ok=True)
     
-    # Define shapes and their corresponding class labels
-    shapes = {
-        0: 'circle',
-        1: 'square',
-        2: 'triangle'
-    }
-    
-    # Create images and collect filenames and labels
     data = []
-    for i in range(num_images):
-        # Choose random shape
-        label = random.randint(0, 2)
-        shape_name = shapes[label]
-        filename = f'shape_{i}_{shape_name}.jpg'
+    shapes = ['circle', 'square', 'triangle']
+    colors = ['red', 'blue', 'green', 'purple', 'orange']  # Added more colors
+    
+    print(f"Generating {num_samples} images...")
+    
+    for i in range(num_samples):
+        # Randomly select shape and color
+        shape = shapes[i % 3]  # Ensure equal distribution of shapes
+        color = random.choice(colors)
         
-        # Create image
+        # Create image with white background
         img = Image.new('RGB', (224, 224), 'white')
         draw = ImageDraw.Draw(img)
         
-        # Draw shape
-        if shape_name == 'circle':
-            draw.ellipse([50, 50, 174, 174], fill='blue')
-        elif shape_name == 'square':
-            draw.rectangle([50, 50, 174, 174], fill='red')
+        # Randomize position and size
+        center_x = random.randint(82, 142)  # Vary center position
+        center_y = random.randint(82, 142)
+        size = random.randint(60, 100)  # Vary size
+        
+        # Draw shape with variations
+        if shape == 'circle':
+            draw.ellipse([
+                center_x - size//2, 
+                center_y - size//2, 
+                center_x + size//2, 
+                center_y + size//2
+            ], fill=color)
+            
+        elif shape == 'square':
+            # Add rotation to square
+            angle = random.randint(0, 45)
+            img_tmp = Image.new('RGBA', (224, 224), (0, 0, 0, 0))
+            draw_tmp = ImageDraw.Draw(img_tmp)
+            
+            # Draw rotated square
+            points = [
+                (-size//2, -size//2),
+                (size//2, -size//2),
+                (size//2, size//2),
+                (-size//2, size//2)
+            ]
+            
+            # Rotate points
+            rotated_points = []
+            for x, y in points:
+                # Rotate point
+                angle_rad = math.radians(angle)
+                rot_x = x * math.cos(angle_rad) - y * math.sin(angle_rad)
+                rot_y = x * math.sin(angle_rad) + y * math.cos(angle_rad)
+                # Move to center position
+                rotated_points.append((rot_x + center_x, rot_y + center_y))
+            
+            draw_tmp.polygon(rotated_points, fill=color)
+            img.paste(img_tmp, (0, 0), img_tmp)
+            
         else:  # triangle
-            draw.polygon([(112, 50), (50, 174), (174, 174)], fill='green')
+            # Add random variation to triangle points
+            variance = size // 4
+            points = [
+                (center_x, center_y - size//2),  # top
+                (center_x - size//2, center_y + size//2),  # bottom left
+                (center_x + size//2, center_y + size//2)   # bottom right
+            ]
+            
+            # Add some random variation to points
+            points = [(x + random.randint(-variance, variance), 
+                      y + random.randint(-variance, variance)) 
+                     for x, y in points]
+            
+            draw.polygon(points, fill=color)
         
-        # Save image
-        img_path = os.path.join(img_dir, filename)
-        img.save(img_path)
+        # Save the image
+        filename = f'shape_{i+1}_{shape}.png'
+        img.save(f'data/images/{filename}')
         
-        # Add to data
+        # Add to dataset
         data.append({
             'filename': filename,
-            'class_label': label
+            'class_label': shapes.index(shape)
         })
     
-    # Create and save CSV file
+    # Create CSV file
     df = pd.DataFrame(data)
-    csv_path = os.path.join(base_dir, 'labels.csv')
-    df.to_csv(csv_path, index=False)
+    df.to_csv('data/labels.csv', index=False)
     
-    print(f"Created {num_images} sample images in {img_dir}")
-    print(f"Created labels file at {csv_path}")
-    print("\nCSV content preview:")
-    print(df.head())
-    
-    return df
+    print("\nCreated dataset with variations:")
+    print(f"- Number of images: {num_samples}")
+    print(f"- Shapes: {', '.join(shapes)}")
+    print(f"- Colors: {', '.join(colors)}")
+    print(f"- Various sizes, positions, and rotations")
+    print("\nDataset contents:")
+    print(df)
 
 if __name__ == '__main__':
-    create_sample_dataset()
+    create_training_data(num_samples=30)  # Generate 30 samples
