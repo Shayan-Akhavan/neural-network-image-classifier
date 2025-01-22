@@ -29,7 +29,7 @@ Triangles are labeled as 2
 
 <h2>SAMPLE OUTPUT</h2>
 
-![Image](https://github.com/user-attachments/assets/e130e012-05e8-453a-b9d4-e9de9c8415bc)
+![Image](https://github.com/user-attachments/assets/e130e012-05e8-453a-b9d4-e9de9c8415bc)  
 ![Image](https://github.com/user-attachments/assets/3bda4306-5ea3-44cd-b7fd-e7108f5ad375)
 
 
